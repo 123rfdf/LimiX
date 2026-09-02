@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  quality:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install backend CI dependencies
+        run: >-
+          python -m pip install fastapi==0.139.0 uvicorn python-multipart pydantic
+          numpy pandas scikit-learn joblib httpx pytest ruff
+      - name: Ruff
+        run: python -m ruff check .
+      - name: Backend tests
+        run: python -m pytest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+      - name: Frontend lint
+        working-directory: frontend
+        run: npm run lint
+      - name: TypeScript
+        working-directory: frontend
+        run: npm run typecheck
+      - name: Production build
+        working-directory: frontend
+        run: npm run build
+      - name: Real LimiX smoke test
+        run: echo "Skipped in CI; requires the separately licensed local LimiX-2M checkpoint. Run scripts/smoke_limix.py locally."
+
