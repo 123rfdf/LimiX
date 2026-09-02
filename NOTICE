@@ -1,0 +1,12 @@
+LimiX Workbench
+Copyright 2026 LimiX Workbench contributors
+
+This application integrates with, but does not redistribute, the LimiX source
+tree or model weights. LimiX source code is published by the LimiX authors under
+Apache License 2.0. LimiX model weights are governed by a separate Model License;
+users must obtain and use them under the terms provided by the LimiX project.
+
+Project: https://github.com/limix-ldm/LimiX
+Paper: Zhang et al., "LimiX: Unleashing Structured-Data Modeling Capability for
+Generalist Intelligence," arXiv:2509.03505 (2025).
+
